@@ -7,6 +7,21 @@ export const fetchAuth = createAsyncThunk("auth/fetchAuth", async (params) => {
   return data;
 });
 
+export const fetchRegister = createAsyncThunk(
+  "auth/fetchRegister",
+  async (params) => {
+    const { data } = await axios.post("/auth/register", params);
+
+    return data;
+  }
+);
+
+export const fetchAuthMe = createAsyncThunk("auth/fetchAuthMe", async () => {
+  const { data } = await axios.get("/auth/me");
+
+  return data;
+});
+
 // export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
 //   const { data } = await axios.get("/tags");
 
@@ -21,7 +36,11 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducer: {},
+  reducers: {
+    logout: (state, action) => {
+      state.data = null;
+    },
+  },
   extraReducers: {
     [fetchAuth.pending]: (state) => {
       state.status = "loading";
@@ -35,17 +54,32 @@ const authSlice = createSlice({
       state.data = null;
       state.status = "error";
     },
-    // [fetchTags.pending]: (state) => {
-    //   state.tags.status = "loading";
-    // },
-    // [fetchTags.fulfilled]: (state, action) => {
-    //   state.tags.items = action.payload;
-    //   state.tags.status = "loaded";
-    // },
-    // [fetchTags.rejected]: (state) => {
-    //   state.tags.items = [];
-    //   state.tags.status = "error";
-    // },
+    [fetchRegister.pending]: (state) => {
+      state.status = "loading";
+      state.data = null;
+    },
+    [fetchRegister.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = "loaded";
+    },
+    [fetchRegister.rejected]: (state) => {
+      state.data = null;
+      state.status = "error";
+    },
+    [fetchAuthMe.pending]: (state) => {
+      state.status = "loading";
+      state.data = null;
+    },
+    [fetchAuthMe.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = "loaded";
+    },
+    [fetchAuthMe.rejected]: (state) => {
+      state.data = null;
+      state.status = "error";
+    },
   },
 });
-export const authReducer = authSlice.reducer;
+export const selectIsAuth = (state) => Boolean(state.auth.data);
+export const { logout } = authSlice.actions;
+export default authSlice.reducer;
