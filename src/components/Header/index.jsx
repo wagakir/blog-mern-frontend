@@ -33,7 +33,7 @@ export const Header = () => {
           <div className={styles.buttons}>
             {isAuth ? (
               <>
-                <NavLink to="/posts/create">
+                <NavLink to="/add-post">
                   <Button variant="contained">Написать статью</Button>
                 </NavLink>
                 <Button

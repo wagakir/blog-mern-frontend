@@ -30,6 +30,10 @@ export const Registration = () => {
       console.log(data);
       return alert(data);
     }
+    if ("token" in data.payload) {
+      window.localStorage.setItem("token", data.payload.token);
+    }
+
     // if ("token" in data.payload) {
     //   window.localStorage.setItem("token", data.payload.token);
     // }

@@ -11,10 +11,13 @@ import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 
 import { Link } from "react-router-dom";
+import { baseURL } from "../../axios";
+import { useDispatch } from "react-redux";
+import { fetchRemovePost } from "../../redux/slices/posts";
 export const Post = ({
   id,
   title,
-  createdAt,
+  createdDate,
   imageUrl,
   user,
   viewsCount,
@@ -25,11 +28,16 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
+  const dispatch = useDispatch();
   if (isLoading) {
     return <PostSkeleton />;
   }
 
-  const onClickRemove = () => {};
+  const onClickRemove = () => {
+    if (window.confirm("Вы действительно хотите удалить статью?")) {
+      dispatch(fetchRemovePost(id));
+    }
+  };
 
   return (
     <div className={clsx(styles.root, { [styles.rootFull]: isFullPost })}>
@@ -48,12 +56,12 @@ export const Post = ({
       {imageUrl && (
         <img
           className={clsx(styles.image, { [styles.imageFull]: isFullPost })}
-          src={imageUrl}
+          src={imageUrl ? baseURL + imageUrl : ""}
           alt={title}
         />
       )}
       <div className={styles.wrapper}>
-        <UserInfo {...user} additionalText={createdAt} />
+        <UserInfo {...user} additionalText={createdDate} />
         <div className={styles.indention}>
           <h2
             className={clsx(styles.title, { [styles.titleFull]: isFullPost })}
