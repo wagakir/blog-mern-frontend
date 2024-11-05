@@ -27,12 +27,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
         </Routes>
-
-        {/* <Home /> */}
-        {/* <FullPost /> */}
-        {/* <AddPost /> */}
-        {/* <Login /> */}
-        {/*<Registration />*/}
       </Container>
     </>
   );

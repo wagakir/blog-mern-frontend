@@ -7,14 +7,14 @@ import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
 import { useSelector } from "react-redux";
-import { selectIsAuth } from "../../redux/slices/auth";
+
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import axios, { baseURL } from "../../axios";
 
 export const AddPost = () => {
   const { id } = useParams();
   const isEditing = Boolean(id);
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector((state) => Boolean(state.auth.data));
   const inputFileRef = React.useRef();
   const navigate = useNavigate();
 

@@ -11,7 +11,7 @@ import store from "./redux/store";
 import "./index.scss";
 import { theme } from "./theme";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 
 root.render(
   <>

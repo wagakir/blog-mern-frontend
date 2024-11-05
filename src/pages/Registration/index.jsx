@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
 import styles from "./Login.module.scss";
-import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
+import { fetchRegister } from "../../redux/slices/auth";
 import { Navigate } from "react-router-dom";
 
 export const Registration = () => {
   const dispatch = useDispatch();
 
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector((state) => Boolean(state.auth.data));
   const {
     watch,
     register,

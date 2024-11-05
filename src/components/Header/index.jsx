@@ -5,11 +5,11 @@ import styles from "./Header.module.scss";
 import Container from "@mui/material/Container";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, selectIsAuth } from "../../redux/slices/auth";
+import { logout } from "../../redux/slices/auth";
 
 export const Header = () => {
   const { data } = useSelector((state) => state.auth);
-  const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector((state) => Boolean(state.auth.data));
   const dispatch = useDispatch();
   const onClickLogout = () => {
     if (window.confirm("Вы действительно хотите выйти из аккауна?")) {
